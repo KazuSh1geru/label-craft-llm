@@ -6,12 +6,16 @@ from src.utils.init_logger import init_logger
 
 # ログ設定ファイルの読み込み
 logger = init_logger()
-DIR_PATH = Path(__file__).resolve().parent
-PROCESSED_PATH = DIR_PATH.joinpath("processed")
-DATA_PATH = DIR_PATH.joinpath("data")
+ROOT_PATH = Path(__file__).resolve().parent.parent
+DATA_PATH = ROOT_PATH.joinpath("data")
+PROCESSED_PATH = ROOT_PATH.joinpath("processed")
 
 TARGET_COLS = [
-    "sectors","subsectors","industries","ca_name","cag_name",
+    "sectors",
+    "subsectors",
+    "industries",
+    "ca_name",
+    "cag_name",
 ]
 
 RENAME_COLS = [
@@ -46,3 +50,7 @@ def preprocess(obj_name: str) -> pd.DataFrame | None:
     else:
         logger.info("Finish preprocess")
         return obj_dataframe
+
+
+if __name__ == "__main__":
+    preprocess("company")
