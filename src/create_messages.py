@@ -29,14 +29,14 @@ def create_input_messages(json_str: str) -> list[dict[str, str | None]]:
             "role": "system",
             "content": CATEGORY_PROMPT,
         },
-        # 変換なし
+        # アウトプット例などを入力する
         # {
         #     "role": "user",
         #     "content": '',
         # },
         # {
         #     "role": "assistant",
-        #     "content": "-- キャンペーン ID: 参照関係(キャンペーン), マスクなし\nCampaignId AS CampaignId,\n",
+        #     "content": "",
         # },
         # 仕様をインプットして, SQLXを生成する
         {
