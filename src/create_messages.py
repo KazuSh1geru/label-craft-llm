@@ -1,5 +1,3 @@
-import json
-
 COMMON_PROMPT = """あなたはデータラベリングを行うシステムです。JSONをインプットとして与えます.ルールに従い「ラベル」と「ラベリング信頼度」を選択して出力してください.
 """
 
@@ -88,11 +86,14 @@ def create_input_category_messages(json_str: str) -> list[dict[str, str | None]]
     return messages
 
 
-def create_input_selection_messages(json_str: str) -> list[dict[str, str | None]]:
+def create_input_selection_messages(
+    json_str: str,
+    label_value: str,
+) -> list[dict[str, str | None]]:
     # JSON文字列をPythonの辞書に変換
-    data = json.loads(json_str)
+    # data = json.loads(json_str)
     # 'ラベル'の値を取得
-    label_value = data["ラベル"]
+    # label_value = data["ラベル"]
     select_prompt = get_select_prompt(select_items=SELECTION_ITEM_DICT[label_value])
     messages = [
         {

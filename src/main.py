@@ -1,7 +1,12 @@
 import argparse
 from pathlib import Path
 
-from src.create_messages import create_input_category_messages
+import pandas as pd
+
+from src.create_messages import (
+    create_input_category_messages,
+    create_input_selection_messages,
+)
 from src.generate_by_gpt import generate_message
 from src.preprocess import preprocess
 from src.utils.init_logger import init_logger
@@ -31,23 +36,65 @@ def create_category(obj_name: str) -> None:
 
     # アウトプットを初期化する
     _initialize_file(
-        obj_name=obj_name, path=OUTPUT_CATEGORY_PATH, columns=CATEGORY_CSV_COLS,
+        obj_name=obj_name,
+        path=OUTPUT_CATEGORY_PATH,
+        columns=CATEGORY_CSV_COLS,
     )
-
     # 仕様レコードごとにSQLを生成する
     for _, row in obj_dataframe.iterrows():
         # JSON形式に変換する
         json_str = row.to_json(force_ascii=False)
         logger.info(json_str)
 
-        convert_sqlx = generate_message(
+        category_values = generate_message(
             messages=create_input_category_messages(json_str=json_str),
         )
         # 書き込みを行う
         _append_to_file(
             obj_name=obj_name,
-            content=convert_sqlx,
+            content=category_values,
             path=OUTPUT_CATEGORY_PATH,
+        )
+
+
+def create_selection(obj_name: str) -> None:
+    # データの前処理を行う
+    obj_dataframe = preprocess(obj_name=obj_name)
+    if obj_dataframe is None:
+        logger.error("Failed to preprocess data")
+        return
+
+    # アウトプットを初期化する
+    _initialize_file(
+        obj_name=obj_name,
+        path=OUTPUT_SELECTION_PATH,
+        columns=CATEGORY_CSV_COLS,
+    )
+    label_dataframe = pd.read_csv(OUTPUT_CATEGORY_PATH.joinpath(f"{obj_name}.csv"))
+    # 仕様レコードごとにSQLを生成する
+    for _, row in obj_dataframe.iterrows():
+        # ラベルの値を取得する
+        label_value = label_dataframe.loc[
+            (label_dataframe["id"] == row["id"])
+            & (label_dataframe["属性名"] == row["属性名"])
+            & (label_dataframe["属性グループ名"] == row["属性グループ名"])
+        ]["ラベル"].values[0]
+        logger.info(f"ラベルの値は: {label_value}")
+        # JSON形式に変換する
+        json_str = row.to_json(force_ascii=False)
+        logger.info(json_str)
+
+        selection_values = generate_message(
+            messages=create_input_selection_messages(
+                json_str=json_str,
+                label_value=label_value,
+            ),
+        )
+        # 書き込みを行う
+        _append_to_file(
+            obj_name=obj_name,
+            content=selection_values,
+            path=OUTPUT_SELECTION_PATH,
         )
 
 
@@ -80,4 +127,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # コマンドラインから取得したobj_nameを引数に渡します
-    create_category(obj_name=args.obj_name)
+    # create_category(obj_name=args.obj_name)
+    create_selection(obj_name=args.obj_name)

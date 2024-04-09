@@ -32,13 +32,13 @@ RENAME_COLS = [
 def preprocess(obj_name: str) -> pd.DataFrame | None:
     try:
         obj_dataframe = pd.read_csv(DATA_PATH.joinpath(f"{obj_name}.csv"))
-        logger.info(obj_dataframe.columns)
+        # logger.info(obj_dataframe.columns)
 
         # 必要なカラムのみ抽出
         obj_dataframe = obj_dataframe[TARGET_COLS]
 
         obj_dataframe.columns = RENAME_COLS
-        logger.info(obj_dataframe.columns)
+        # logger.info(obj_dataframe.columns)
         # ファイルが存在しない場合、ディレクトリを作成する
         Path(PROCESSED_PATH).mkdir(parents=True, exist_ok=True)
 
