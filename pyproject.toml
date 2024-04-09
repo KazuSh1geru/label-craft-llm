@@ -12,6 +12,7 @@ packages = [
 python = "^3.10"
 openai = "^1.16.2"
 python-dotenv = "^1.0.1"
+pandas = "^2.2.1"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.3.2"
