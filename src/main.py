@@ -127,5 +127,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # コマンドラインから取得したobj_nameを引数に渡します
-    # create_category(obj_name=args.obj_name)
-    create_selection(obj_name=args.obj_name)
+    create_category(obj_name=args.obj_name)
+    # create_selection(obj_name=args.obj_name)
