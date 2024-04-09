@@ -1,0 +1,7 @@
+{
+    "python.pythonPath": ".venv/bin/python",
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit",
+        "source.fixAll": "explicit"
+    }
+}
