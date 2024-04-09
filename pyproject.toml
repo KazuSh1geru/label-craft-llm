@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "label-craft-llm"
+version = "0.1.0"
+description = ""
+authors = ["KazuSh1geru"]
+readme = "README.md"
+packages = [
+    { include = "src", from = "." }
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+openai = "^1.16.2"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.3.2"
+black = "^24.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
