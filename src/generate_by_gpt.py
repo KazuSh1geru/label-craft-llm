@@ -8,7 +8,7 @@ logger = init_logger()
 api_key, model_name = get_openai_api_key()
 
 
-def generate_sqlx(messages: list[dict[str, str]]) -> str | None:
+def generate_message(messages: list[dict[str, str]]) -> str | None:
     try:
         client = OpenAI(
             # This is the default and can be omitted
