@@ -11,6 +11,7 @@ DATA_PATH = ROOT_PATH.joinpath("data")
 PROCESSED_PATH = ROOT_PATH.joinpath("processed")
 
 TARGET_COLS = [
+    "c_code",
     "sectors",
     "subsectors",
     "industries",
@@ -19,6 +20,7 @@ TARGET_COLS = [
 ]
 
 RENAME_COLS = [
+    "id",
     "業界大分類",
     "業界中分類",
     "業界小分類",
@@ -53,4 +55,4 @@ def preprocess(obj_name: str) -> pd.DataFrame | None:
 
 
 if __name__ == "__main__":
-    preprocess("company")
+    preprocess("組織属性ラベリング検証")
