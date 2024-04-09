@@ -1,19 +1,17 @@
 import argparse
 from pathlib import Path
 
-from src.create_messages import (
-    create_input_messages,
-)
+from src.create_messages import create_input_category_messages
 from src.generate_by_gpt import generate_message
 from src.preprocess import preprocess
 from src.utils.init_logger import init_logger
 
-ROOT_PATH = Path(__file__).resolve().parent.parent
-OUTPUT_PATH = ROOT_PATH.joinpath("output", "category")
-
-
 # ログ設定ファイルの読み込み
 logger = init_logger()
+
+ROOT_PATH = Path(__file__).resolve().parent.parent
+OUTPUT_CATEGORY_PATH = ROOT_PATH.joinpath("output", "category")
+OUTPUT_SELECTION_PATH = ROOT_PATH.joinpath("output", "selection")
 
 CATEGORY_CSV_COLS = [
     "id",
@@ -24,7 +22,7 @@ CATEGORY_CSV_COLS = [
 ]
 
 
-def main(obj_name: str) -> None:
+def create_category(obj_name: str) -> None:
     # データの前処理を行う
     obj_dataframe = preprocess(obj_name=obj_name)
     if obj_dataframe is None:
@@ -32,7 +30,9 @@ def main(obj_name: str) -> None:
         return
 
     # アウトプットを初期化する
-    _initialize_file(obj_name=obj_name, path=OUTPUT_PATH, columns=CATEGORY_CSV_COLS)
+    _initialize_file(
+        obj_name=obj_name, path=OUTPUT_CATEGORY_PATH, columns=CATEGORY_CSV_COLS,
+    )
 
     # 仕様レコードごとにSQLを生成する
     for _, row in obj_dataframe.iterrows():
@@ -41,13 +41,13 @@ def main(obj_name: str) -> None:
         logger.info(json_str)
 
         convert_sqlx = generate_message(
-            messages=create_input_messages(json_str=json_str),
+            messages=create_input_category_messages(json_str=json_str),
         )
         # 書き込みを行う
         _append_to_file(
             obj_name=obj_name,
             content=convert_sqlx,
-            path=OUTPUT_PATH,
+            path=OUTPUT_CATEGORY_PATH,
         )
 
 
@@ -79,5 +79,5 @@ if __name__ == "__main__":
     # コマンドライン引数を解析します
     args = parser.parse_args()
 
-    # main関数を呼び出し、コマンドラインから取得したobj_nameを引数に渡します
-    main(obj_name=args.obj_name)
+    # コマンドラインから取得したobj_nameを引数に渡します
+    create_category(obj_name=args.obj_name)
