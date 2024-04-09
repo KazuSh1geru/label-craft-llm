@@ -12,20 +12,20 @@ PROCESSED_PATH = ROOT_PATH.joinpath("processed")
 
 TARGET_COLS = [
     "c_code",
+    "ca_name",
+    "cag_name",
     "sectors",
     "subsectors",
     "industries",
-    "ca_name",
-    "cag_name",
 ]
 
 RENAME_COLS = [
     "id",
+    "属性名",
+    "属性グループ名",
     "業界大分類",
     "業界中分類",
     "業界小分類",
-    "属性名",
-    "属性グループ名",
 ]
 
 
