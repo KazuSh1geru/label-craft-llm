@@ -84,7 +84,6 @@ def create_input_category_messages(json_str: str) -> list[dict[str, str | None]]
         #     "role": "assistant",
         #     "content": "",
         # },
-        # 仕様をインプットして, SQLXを生成する
         {
             "role": "user",
             "content": json_str,
@@ -116,7 +115,6 @@ def create_input_selection_messages(
         #     "role": "assistant",
         #     "content": "",
         # },
-        # 仕様をインプットして, SQLXを生成する
         {
             "role": "user",
             "content": json_str,
