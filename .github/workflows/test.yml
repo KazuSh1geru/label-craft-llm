@@ -28,8 +28,4 @@ jobs:
     if: needs.check-paths.outputs.path == 'true'
     steps:
       - uses: actions/checkout@v3
-      # デバッグのためpwdを表示
-      - run: pwd
-      # デバッグのためlsを表示
-      - run: ls
       - uses: ./.github/actions/test
