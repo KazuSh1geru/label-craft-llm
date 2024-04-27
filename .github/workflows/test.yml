@@ -13,7 +13,7 @@ jobs:
     outputs:
       path: ${{ steps.changes.outputs.path == 'true' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
       - uses: dorny/paths-filter@v2
         id: changes
         with:
@@ -27,5 +27,5 @@ jobs:
     needs: [check-paths]
     if: needs.check-paths.outputs.path == 'true'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
       - uses: ./.github/actions/test
