@@ -115,7 +115,6 @@ def create_input_selection_messages(
         #     "role": "assistant",
         #     "content": "",
         # },
-        # 仕様をインプットして, SQLXを生成する
         {
             "role": "user",
             "content": json_str,

@@ -10,5 +10,7 @@
         "dataframe",
         "openai",
         "dotenv",
+        "iterrows",
+        "subsectors",
     ]
 }
