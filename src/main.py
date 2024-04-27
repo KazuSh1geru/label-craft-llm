@@ -78,7 +78,7 @@ def create_selection(obj_name: str) -> None:
             (label_dataframe["id"] == row["id"])
             & (label_dataframe["属性名"] == row["属性名"])
             & (label_dataframe["属性グループ名"] == row["属性グループ名"])
-        ]["ラベル"].values[0]
+        ]["ラベル"].numpy()[0]
         logger.info(f"ラベルの値は: {label_value}")
         # JSON形式に変換する
         json_str = row.to_json(force_ascii=False)
