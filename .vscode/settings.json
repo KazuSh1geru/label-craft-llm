@@ -3,5 +3,12 @@
     "editor.codeActionsOnSave": {
         "source.organizeImports": "explicit",
         "source.fixAll": "explicit"
-    }
+    },
+    "cSpell.enabled": true,
+    "cSpell.language": "en,ja",
+    "cSpell.userWords": [
+        "dataframe",
+        "openai",
+        "dotenv",
+    ]
 }
